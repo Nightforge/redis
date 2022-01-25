@@ -17,7 +17,7 @@ private macro test(name, &block)
 end
 
 describe Redis::Graph do
-  redis = Redis::Client.new
+  redis = Redis::Client.new(uri: redis_uri())
 
   test "creates and retrieves nodes" do
     2.times do

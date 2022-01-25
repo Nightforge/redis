@@ -5,8 +5,7 @@ require "../src/redis"
 
 # Do not use DB slot 15. That's used as the secondary DB for testing the ability
 # to use DBs other than 0.
-redis_uri = URI.parse("redis:///")
-redis = Redis::Client.new(uri: redis_uri)
+redis = Redis::Client.new(uri: redis_uri())
 
 private def random_key
   UUID.random.to_s
