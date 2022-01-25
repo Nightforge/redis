@@ -16,6 +16,8 @@ jobs:
           --health-interval 5s
           --health-timeout 3s
           --health-retries 3
+        ports:
+          - 6379:6379
 
     strategy:
       fail-fast: false
@@ -26,6 +28,7 @@ jobs:
           - latest
         experimental:
           - false
+
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental }}
     steps:
