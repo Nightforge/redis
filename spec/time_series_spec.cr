@@ -15,7 +15,7 @@ private macro test(name)
   end
 end
 
-redis = Redis::Client.new
+redis = Redis::Client.new(uri: redis_uri())
 
 module Redis
   describe TimeSeries do

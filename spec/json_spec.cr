@@ -49,7 +49,7 @@ private macro test(name)
 end
 
 # redis = Redis::Cluster.new
-redis = Redis::Client.new
+redis = Redis::Client.new(uri: redis_uri())
 
 describe Redis::JSON do
   test "sets and gets JSON objects" do

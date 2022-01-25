@@ -5,8 +5,7 @@ require "../src/redis"
 
 # Do not use DB slot 15. That's used as the secondary DB for testing the ability
 # to use DBs other than 0.
-redis_uri = URI.parse("redis:///")
-redis = Redis::Client.new(uri: redis_uri)
+redis = Redis::Client.new(uri: redis_uri())
 
 private def random_key
   UUID.random.to_s
@@ -84,7 +83,6 @@ describe Redis::Client do
       redis.incrby(key, 3).should eq 5
       redis.decrby(key, 2).should eq 3
       redis.incrby(key, 1234567812345678).should eq 1234567812345678 + 3
-
     ensure
       redis.del key
     end
@@ -156,9 +154,9 @@ describe Redis::Client do
     key = random_key
 
     begin
-      first_incr  = Redis::Future.new
+      first_incr = Redis::Future.new
       second_incr = Redis::Future.new
-      first_decr  = Redis::Future.new
+      first_decr = Redis::Future.new
       second_decr = Redis::Future.new
 
       redis.pipeline do |redis|
@@ -266,7 +264,6 @@ describe Redis::Client do
         consumer_id = UUID.random.to_s
 
         result = redis.xreadgroup group, consumer_id, count: "10", streams: {"my-stream": ">"}
-
       rescue ex
         pp ex
         raise ex

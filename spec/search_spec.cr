@@ -4,7 +4,7 @@ require "uuid"
 require "../src/redis"
 require "../src/search"
 
-redis = Redis::Client.new
+redis = Redis::Client.new(uri: redis_uri())
 
 module Redis
   describe FullText do
